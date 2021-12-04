@@ -78,6 +78,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ListView
+            android:id="@+id/listView"
             android:layout_width="462dp"
             android:layout_height="588dp"
             android:layout_marginTop="140dp"
@@ -223,7 +224,7 @@
             android:layout_width="132dp"
             android:layout_height="49dp"
             android:layout_marginStart="52dp"
-            android:layout_marginTop="600dp"
+            android:layout_marginTop="450dp"
             android:text="@string/apply"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -233,7 +234,7 @@
             android:layout_width="132dp"
             android:layout_height="49dp"
             android:layout_marginStart="220dp"
-            android:layout_marginTop="600dp"
+            android:layout_marginTop="450dp"
             android:text="@string/clear"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

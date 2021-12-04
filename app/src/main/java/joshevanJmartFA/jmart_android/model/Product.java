@@ -10,6 +10,6 @@ public class Product extends Serializable{
     public byte shipmentPlans;
     public int weight;
     public String toString(){
-        return "Account Id: "+this.accountId+"Name: " +this.name+ "Weight: " +this.weight+ "Condition used: "+this.conditionUsed+"Price: "+this.price+"Discount: "+this.discount+"Category: "+this.category;
+        return "Name: " +this.name;
     }
 }

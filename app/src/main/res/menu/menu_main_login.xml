@@ -8,6 +8,11 @@
     app:actionViewClass="androidx.appcompat.widget.SearchView"
     app:showAsAction="collapseActionView|always"/>
     <item
+        android:id= "@+id/createItem"
+        android:icon = "@drawable/ic_baseline_add_box_24"
+        android:title ="Create"
+        app:showAsAction="collapseActionView|always"/>
+    <item
         android:id= "@+id/accountItem"
         android:icon = "@drawable/ic_baseline_account_box_24"
         android:title ="Account"

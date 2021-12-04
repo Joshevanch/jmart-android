@@ -3,9 +3,18 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/joshe/AndroidStudioProjects/jmartandroid/app/src/main/res/layout/activityFilters.xml" value="0.152" />
         <entry key="..\:/Users/joshe/AndroidStudioProjects/jmartandroid/app/src/main/res/layout/activity_login.xml" value="0.264" />
         <entry key="..\:/Users/joshe/AndroidStudioProjects/jmartandroid/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/Users/joshe/AndroidStudioProjects/jmartandroid/app/src/main/res/layout/activity_one.xml" value="0.2" />
         <entry key="..\:/Users/joshe/AndroidStudioProjects/jmartandroid/app/src/main/res/layout/activity_register.xml" value="0.264" />
+        <entry key="..\:/Users/joshe/AndroidStudioProjects/jmartandroid/app/src/main/res/layout/activity_two.xml" value="0.12360688956433637" />
+        <entry key="..\:/Users/joshe/AndroidStudioProjects/jmartandroid/app/src/main/res/layout/activityfilters.xml" value="0.264" />
+        <entry key="..\:/Users/joshe/AndroidStudioProjects/jmartandroid/app/src/main/res/layout/activityproducts.xml" value="0.264" />
+        <entry key="..\:/Users/joshe/AndroidStudioProjects/jmartandroid/app/src/main/res/layout/fragment_fragment1.xml" value="0.264" />
+        <entry key="..\:/Users/joshe/AndroidStudioProjects/jmartandroid/app/src/main/res/layout/fragment_fragment2.xml" value="0.11231884057971014" />
+        <entry key="..\:/Users/joshe/AndroidStudioProjects/jmartandroid/app/src/main/res/menu/menu_main.xml" value="0.22962962962962963" />
+        <entry key="..\:/Users/joshe/AndroidStudioProjects/jmartandroid/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2703125" />
       </map>
     </option>
   </component>

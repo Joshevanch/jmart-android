@@ -56,7 +56,6 @@ public class RegisterActivity extends AppCompatActivity {
                         Toast.makeText(RegisterActivity.this, "System Error", Toast.LENGTH_SHORT).show();
                     }
                 };
-                System.out.println("nameRegister.getText().toString()");
                 RegisterRequest registerRequest = new RegisterRequest(nameRegister.getText().toString(), emailRegister.getText().toString(), passwordRegister.getText().toString(), responseListener, errorListener);
                 RequestQueue requestQueue = Volley.newRequestQueue(RegisterActivity.this);
                 requestQueue.add (registerRequest);

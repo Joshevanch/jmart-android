@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CreateProductActivity">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="397dp"
+        android:layout_height="510dp"
+        android:layout_marginTop="1dp"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="-6dp">
+
+        <TextView
+            android:id="@+id/productShipmentPlan"
+            android:layout_width="115dp"
+            android:layout_height="19dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="436dp"
+            android:text="Shipment Plan" />
+
+        <EditText
+            android:id="@+id/createProductWeight"
+            android:layout_width="282dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="44dp"
+            android:layout_marginTop="128dp"
+            android:ems="10"
+            android:hint="Weight"
+            android:inputType="textPersonName"
+            android:minHeight="48dp" />
+
+        <RadioButton
+            android:id="@+id/createProductConditionNew"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="208dp"
+            android:layout_marginTop="316dp"
+            android:text="New" />
+
+        <EditText
+            android:id="@+id/createProductDiscount"
+            android:layout_width="281dp"
+            android:layout_height="51dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="248dp"
+            android:ems="10"
+            android:hint="Discount"
+            android:inputType="textPersonName"
+            android:minHeight="48dp" />
+
+        <RadioButton
+            android:id="@+id/createProductConditionUsed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="296dp"
+            android:layout_marginTop="316dp"
+            android:text="Used" />
+
+        <EditText
+            android:id="@+id/createProductPrice"
+            android:layout_width="281dp"
+            android:layout_height="51dp"
+            android:layout_marginStart="44dp"
+            android:layout_marginTop="184dp"
+            android:ems="10"
+            android:hint="Price"
+            android:inputType="textPersonName"
+            android:minHeight="48dp" />
+
+        <TextView
+            android:id="@+id/productCondition"
+            android:layout_width="72dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="328dp"
+            android:text="Condition" />
+
+        <EditText
+            android:id="@+id/createProductName"
+            android:layout_width="281dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="44dp"
+            android:layout_marginTop="68dp"
+            android:ems="10"
+            android:hint="Name"
+            android:inputType="textPersonName"
+            android:minHeight="48dp" />
+
+        <Spinner
+            android:id="@+id/createProductCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="208dp"
+            android:layout_marginTop="384dp"
+            android:entries="@array/shipmentPlans"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <Spinner
+            android:id="@+id/createProductShipmentPlan"
+            android:layout_width="134dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="208dp"
+            android:entries="@array/productCategory"
+            android:layout_marginTop="436dp" />
+
+        <TextView
+            android:id="@+id/productCategory"
+            android:layout_width="72dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="380dp"
+            android:text="Category" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="38dp"
+            android:text="Create Product" />
+    </androidx.cardview.widget.CardView>
+
+    <Button
+        android:id="@+id/buttonCreateProductCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="224dp"
+        android:layout_marginTop="536dp"
+        android:text="Cancel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttonCreateProduct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="76dp"
+        android:layout_marginTop="536dp"
+        android:text="Create"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

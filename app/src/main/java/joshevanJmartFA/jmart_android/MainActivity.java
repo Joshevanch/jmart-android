@@ -24,19 +24,19 @@ public class MainActivity extends AppCompatActivity {
             "WebOS","Ubuntu","Windows7","Max OS X"};
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (LoginActivity.getLoggedAccount().store!=null){
-            MenuInflater inflater = getMenuInflater();
-            inflater.inflate(R.menu.menu_main, menu);
-            return true;
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main_login, menu);
+        if (LoginActivity.getLoggedAccount().store ==null){
+            menu.findItem(R.id.createItem).setVisible(false);
         }
-        else {
-            MenuInflater inflater = getMenuInflater();
-            inflater.inflate(R.menu.menu_main_login, menu);
-            return true;
-        }
+        return true;
     }
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.createItem:
+                Intent a = new Intent(this,CreateProductActivity.class);
+                this.startActivity(a);
+                return true;
             case R.id.accountItem:
                 Intent i = new Intent(this,AboutMeActivity.class);
                 this.startActivity(i);
@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         tabLayout = findViewById(R.id.tabLayout);

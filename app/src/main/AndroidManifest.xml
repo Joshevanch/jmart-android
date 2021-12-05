@@ -15,9 +15,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
         <activity
-            android:name=".AboutMeActivity"
-            android:label= "About Me"
+            android:name=".CreateProductActivity"
             android:exported="false" />
+        <activity
+            android:name=".AboutMeActivity"
+            android:exported="false"
+            android:label="About Me" />
         <activity
             android:name=".listview"
             android:exported="false" />

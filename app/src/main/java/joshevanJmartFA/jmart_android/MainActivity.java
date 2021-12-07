@@ -8,20 +8,55 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.cardview.widget.CardView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.material.tabs.TabLayout;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.reflect.TypeToken;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.lang.reflect.Array;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import joshevanJmartFA.jmart_android.model.Account;
+import joshevanJmartFA.jmart_android.model.Product;
+import joshevanJmartFA.jmart_android.request.LoginRequest;
+import joshevanJmartFA.jmart_android.request.RequestFactory;
 
 public class MainActivity extends AppCompatActivity {
+    private static final Gson gson = new Gson();
     TabLayout tabLayout;
     CardView cardViewProducts;
     CardView cardViewFilters;
     ListView listView;
-    String product[] = {"Android","IPhone","WindowsMobile","Blackberry",
-            "WebOS","Ubuntu","Windows7","Max OS X"};
+    Button buttonNext;
+    Button buttonPrev;
+    Button buttonGo;
+    EditText productPage;
+    public static int page = 0;
+    public static Product product = null;
+    ArrayAdapter<Product> productArrayAdapter;
+    private static  ArrayList<Product> productList = null;
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -47,15 +82,17 @@ public class MainActivity extends AppCompatActivity {
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         tabLayout = findViewById(R.id.tabLayout);
         cardViewProducts = findViewById(R.id.cardViewProducts);
         cardViewFilters = findViewById(R.id.cardViewFilters);
-        ArrayAdapter<String> productArrayAdapter = new ArrayAdapter<String>(this,R.layout.activity_listview,product);
+        buttonNext = findViewById(R.id.buttonNext);
+        buttonPrev = findViewById(R.id.buttonPrev);
+        buttonGo = findViewById(R.id.buttonGo);
+        productPage = findViewById(R.id.editTextPage);
         listView = findViewById(R.id.listView);
-        listView.setAdapter(productArrayAdapter);
+        requestProduct();
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -81,6 +118,65 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+        buttonNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity.page += 1;
+                requestProduct();
+            }
+        });
+        buttonPrev.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (MainActivity.page >= 0) {
+                    MainActivity.page -= 1;
+                    requestProduct();
+                }
+            }
+        });
+        buttonGo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (Integer.parseInt(productPage.getText().toString()) >= 0){
+                    MainActivity.page = Integer.parseInt(productPage.getText().toString());
+                    requestProduct();
+                }
+            }
+        });
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                product = (Product)productArrayAdapter.getItem(position);
+                Intent intent = new Intent(MainActivity.this,ProductDetailActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+    public void requestProduct() {
+        Response.Listener<String> listener = new Response.Listener<String>() {
 
+
+            @Override
+            public void onResponse(String response) {
+
+                try{
+                    JSONArray object = new JSONArray(response);
+                    if (object != null){
+                        Type userListType = new TypeToken<List<Product>>(){}.getType();
+                        MainActivity.productList = gson.fromJson(object.toString(),userListType);
+                        productArrayAdapter = new ArrayAdapter<Product>(MainActivity.this,R.layout.activity_listview,productList);
+                        listView.setAdapter(productArrayAdapter);
+                    }
+                }
+                catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        StringRequest stringRequest = RequestFactory.getPage("product", page,10,listener,null);
+        requestQueue.add (stringRequest);
     }
 }

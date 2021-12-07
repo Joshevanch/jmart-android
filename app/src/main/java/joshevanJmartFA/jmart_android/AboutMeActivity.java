@@ -23,6 +23,7 @@ import joshevanJmartFA.jmart_android.model.Account;
 import joshevanJmartFA.jmart_android.request.LoginRequest;
 import joshevanJmartFA.jmart_android.request.RegisterStoreRequest;
 import joshevanJmartFA.jmart_android.request.RequestFactory;
+import joshevanJmartFA.jmart_android.request.TopUpRequest;
 
 public class AboutMeActivity extends AppCompatActivity {
 
@@ -51,20 +52,36 @@ public class AboutMeActivity extends AppCompatActivity {
         TextView storeAddressAddress = findViewById(R.id.storeAddressAddress);
         TextView storePhoneNumberPhoneNumber = findViewById(R.id.storePhoneNumberPhoneNumber);
 
+        topUp.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Response.Listener<String> listener1 = new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Toast.makeText(AboutMeActivity.this, "Top Up Successful", Toast.LENGTH_SHORT).show();
+                        LoginActivity.getLoggedAccount().balance += Double.parseDouble(topUpAmount.getText().toString());
+                        aboutMeBalanceAccount.setText(String.valueOf(LoginActivity.getLoggedAccount().balance));
+                    }
+                };
+                Response.ErrorListener errorListener1 = new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(AboutMeActivity.this, "System Error", Toast.LENGTH_SHORT).show();
+                    }
+                };
+                TopUpRequest topUpRequest = new TopUpRequest(LoginActivity.getLoggedAccount().id, topUpAmount.getText().toString(),
+                        listener1, errorListener1);
+                RequestQueue requestQueue = Volley.newRequestQueue(AboutMeActivity.this);
+                requestQueue.add (topUpRequest);
+            }
+        });
         if (LoginActivity.getLoggedAccount().store == null){
             registerStoreButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     registerStoreButton.setVisibility(View.GONE);
                     registerStore.setVisibility(View.VISIBLE);
-                }
-            });
-            topUp.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-                    LoginActivity.getLoggedAccount().balance += Double.parseDouble(topUpAmount.getText().toString());
-                    aboutMeBalanceAccount.setText(String.valueOf(LoginActivity.getLoggedAccount().balance));
                 }
             });
             register.setOnClickListener(new View.OnClickListener() {

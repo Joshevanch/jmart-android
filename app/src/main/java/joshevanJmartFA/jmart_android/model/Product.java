@@ -9,7 +9,8 @@ public class Product extends Serializable{
     public double price;
     public byte shipmentPlans;
     public int weight;
+    @Override
     public String toString(){
-        return "Name: " +this.name;
+        return this.name;
     }
 }

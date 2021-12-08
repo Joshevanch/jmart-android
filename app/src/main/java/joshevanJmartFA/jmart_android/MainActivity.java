@@ -16,6 +16,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.widget.SearchView;
 import androidx.cardview.widget.CardView;
 
 import com.android.volley.Request;
@@ -37,6 +38,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Locale;
 
 import joshevanJmartFA.jmart_android.model.Account;
 import joshevanJmartFA.jmart_android.model.Product;
@@ -45,6 +47,8 @@ import joshevanJmartFA.jmart_android.request.RequestFactory;
 
 public class MainActivity extends AppCompatActivity {
     private static final Gson gson = new Gson();
+    String searchText;
+    SearchView searchView;
     TabLayout tabLayout;
     CardView cardViewProducts;
     CardView cardViewFilters;
@@ -57,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
     public static Product product = null;
     ArrayAdapter<Product> productArrayAdapter;
     private static  ArrayList<Product> productList = null;
+    private static  ArrayList<Product> filteredProductList = new ArrayList<>();
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();

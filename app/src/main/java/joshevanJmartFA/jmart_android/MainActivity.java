@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
     public static int page = 0;
     public static Product product = null;
     ArrayAdapter<Product> productArrayAdapter;
-    private static  ArrayList<Product> productList = null;
+    public static  ArrayList<Product> productList = null;
     private static  ArrayList<Product> filteredProductList = new ArrayList<>();
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

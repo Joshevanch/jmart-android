@@ -31,7 +31,12 @@ public class ProductDetailActivity extends AppCompatActivity {
         productDetailPrice.setText(String.format("%.2f",MainActivity.product.price));
         productDetailCategory.setText(MainActivity.product.category.name());
         productDetailDiscount.setText(String.format("%.2f",MainActivity.product.discount));
-        productDetailConditionUsed.setText(String.valueOf(MainActivity.product.conditionUsed).toUpperCase());
+        if (MainActivity.product.conditionUsed == true){
+            productDetailConditionUsed.setText("USED");
+        }
+        else if (MainActivity.product.conditionUsed == false) {
+            productDetailConditionUsed.setText("NEW");
+        }
         productDetailAccountId.setText(String.valueOf(MainActivity.product.accountId));
         setProductDetailShipmentPlans(MainActivity.product.shipmentPlans);
         productDetailShipmentPlans.setText(shipmentPlansString);

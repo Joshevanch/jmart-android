@@ -98,7 +98,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tabLayout">
 
         <EditText
-            android:id="@+id/editTextFiltername"
+            android:id="@+id/editTextFilterName"
             android:layout_width="384dp"
             android:layout_height="48dp"
             android:layout_marginStart="16dp"
@@ -108,15 +108,29 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <CheckBox
-            android:id="@+id/checkBoxFilterNew"
+        <RadioGroup
+            android:id="@+id/filterProductRadioGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="228dp"
-            android:layout_marginTop="200dp"
-            android:text="New"
+            android:layout_marginStart="230dp"
+            android:layout_marginTop="190dp"
+            android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <RadioButton
+                android:id="@+id/filterProductConditionNew"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New" />
+
+            <RadioButton
+                android:id="@+id/filterProductConditionUsed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="45dp"
+                android:text="Used" />
+        </RadioGroup>
 
         <TextView
             android:id="@+id/textViewFilterHighestPrice2"
@@ -129,12 +143,12 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Spinner
-            android:id="@+id/spinner"
+            android:id="@+id/filterProductCategory"
             android:layout_width="166dp"
             android:layout_height="48dp"
             android:layout_marginStart="230dp"
             android:layout_marginTop="258dp"
-            android:entries="@array/productCategory"
+            android:entries="@array/productCategoryFilter"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -180,7 +194,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName"
+            android:id="@+id/editTextFilterLowestPrice"
             android:layout_width="150dp"
             android:layout_height="48dp"
             android:layout_marginStart="16dp"
@@ -207,16 +221,6 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="270dp"
             android:text="Product Category"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <CheckBox
-            android:id="@+id/checkBoxFilterNew2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="320dp"
-            android:layout_marginTop="200dp"
-            android:text="Used"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

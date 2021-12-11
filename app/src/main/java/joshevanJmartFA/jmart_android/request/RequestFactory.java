@@ -7,6 +7,8 @@ import java.util.Map;
 public class RequestFactory {
     private static final String URL_FORMAT_ID = "http://10.0.2.2:8080/%s/%d";
     private static final String URL_FORMAT_PAGE = "http://10.0.2.2:8080/%s/page?page=%s&pageSize=%s";
+    private static final String URL_FORMAT_FILTER = "http://10.0.2.2:8080/product/getFiltered?page=%s&pageSize=%s&search=%s&minPrice=%s&maxPrice=%s&category=%s&conditionUsed=%s";
+
     public static StringRequest getById
             (
                     String parentURI,
@@ -28,6 +30,23 @@ public class RequestFactory {
             )
     {
         String url = String.format(URL_FORMAT_PAGE, parentURI, page, pageSize);
+        return new StringRequest(Request.Method.GET, url, listener, errorListener);
+    }
+    public static StringRequest getFiltered
+            (
+                    int page,
+                    int pageSize,
+                    String search,
+                    int minPrice,
+                    int maxPrice,
+                    String category,
+                    Boolean conditionUsed,
+                    Response.Listener<String> listener,
+                    Response.ErrorListener errorListener
+            )
+    {
+        String url = String.format(URL_FORMAT_FILTER, page, pageSize, search, minPrice,
+        maxPrice, category, conditionUsed);
         return new StringRequest(Request.Method.GET, url, listener, errorListener);
     }
 }

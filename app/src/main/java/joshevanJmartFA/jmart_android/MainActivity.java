@@ -13,36 +13,28 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.RadioGroup;
+import android.widget.Spinner;
 
 import androidx.appcompat.widget.SearchView;
 import androidx.cardview.widget.CardView;
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.tabs.TabLayout;
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.Locale;
 
-import joshevanJmartFA.jmart_android.model.Account;
 import joshevanJmartFA.jmart_android.model.Product;
-import joshevanJmartFA.jmart_android.request.LoginRequest;
 import joshevanJmartFA.jmart_android.request.RequestFactory;
 
 public class MainActivity extends AppCompatActivity {
@@ -57,11 +49,20 @@ public class MainActivity extends AppCompatActivity {
     Button buttonPrev;
     Button buttonGo;
     EditText productPage;
+    EditText filterName;
+    EditText filterLowestPrice;
+    EditText filterHighestPrice;
+    Spinner filterProductCategory;
+    Button applyFilter;
+    Button clearFilter;
+    private String filterProductCategoryString;
+    private Boolean filterProduct = false;
+    private Boolean filterConditionUsed = true;
     public static int page = 0;
     public static Product product = null;
     ArrayAdapter<Product> productArrayAdapter;
     public static  ArrayList<Product> productList = null;
-    private static  ArrayList<Product> filteredProductList = new ArrayList<>();
+    public static  ArrayList<Product> filteredProductList = null;
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -97,6 +98,14 @@ public class MainActivity extends AppCompatActivity {
         buttonGo = findViewById(R.id.buttonGo);
         productPage = findViewById(R.id.editTextPage);
         listView = findViewById(R.id.listView);
+        filterName = findViewById(R.id.editTextFilterName);
+        filterLowestPrice = findViewById(R.id.editTextFilterLowestPrice);
+        filterHighestPrice = findViewById(R.id.editTextFilterHighestPrice);
+        filterProductCategory = findViewById(R.id.filterProductCategory);
+        applyFilter = findViewById(R.id.buttonFilterApply);
+        clearFilter = findViewById(R.id.buttonFilterClear);
+        if (filterProduct == false) requestProduct();
+        else requestFilteredProduct();
         requestProduct();
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -127,7 +136,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 MainActivity.page += 1;
-                requestProduct();
+                if (filterProduct == false) requestProduct();
+                else requestFilteredProduct();
             }
         });
         buttonPrev.setOnClickListener(new View.OnClickListener() {
@@ -135,7 +145,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (MainActivity.page >= 0) {
                     MainActivity.page -= 1;
-                    requestProduct();
+                    if (filterProduct == false) requestProduct();
+                    else requestFilteredProduct();
                 }
             }
         });
@@ -144,7 +155,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (Integer.parseInt(productPage.getText().toString()) >= 0){
                     MainActivity.page = Integer.parseInt(productPage.getText().toString());
-                    requestProduct();
+                    if (filterProduct == false) requestProduct();
+                    else requestFilteredProduct();
                 }
             }
         });
@@ -154,6 +166,43 @@ public class MainActivity extends AppCompatActivity {
                 product = (Product)productArrayAdapter.getItem(position);
                 Intent intent = new Intent(MainActivity.this,ProductDetailActivity.class);
                 startActivity(intent);
+            }
+        });
+        filterProductCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                filterProductCategoryString = parent.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        RadioGroup filterProductRadioGroup = findViewById(R.id.filterProductRadioGroup);
+        filterProductRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (checkedId == R.id.filterProductConditionNew){
+                    filterConditionUsed = false;
+                }
+                else if (checkedId == R.id.filterProductConditionUsed){
+                    filterConditionUsed =true;
+                }
+            }
+        });
+        applyFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                filterProduct = true;
+                requestFilteredProduct();
+            }
+        });
+        clearFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                filterProduct = false;
+                requestProduct();
             }
         });
     }
@@ -182,6 +231,35 @@ public class MainActivity extends AppCompatActivity {
         };
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         StringRequest stringRequest = RequestFactory.getPage("product", page,10,listener,null);
+        requestQueue.add (stringRequest);
+    }
+    public void requestFilteredProduct() {
+        Response.Listener<String> listener = new Response.Listener<String>() {
+
+
+            @Override
+            public void onResponse(String response) {
+
+                try{
+                    JSONArray object = new JSONArray(response);
+                    if (object != null){
+                        Type userListType = new TypeToken<List<Product>>(){}.getType();
+                        MainActivity.filteredProductList = gson.fromJson(object.toString(),userListType);
+                        productArrayAdapter = new ArrayAdapter<Product>(MainActivity.this,R.layout.activity_listview,filteredProductList);
+                        listView.setAdapter(productArrayAdapter);
+                    }
+                }
+                catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        StringRequest stringRequest = RequestFactory.getFiltered(page,10,filterName.getText().toString(),
+                Integer.parseInt(filterLowestPrice.getText().toString()),Integer.parseInt(filterHighestPrice.getText().toString()),
+                filterProductCategoryString,filterConditionUsed, listener,null);
         requestQueue.add (stringRequest);
     }
 }

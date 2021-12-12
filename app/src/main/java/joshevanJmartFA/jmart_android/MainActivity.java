@@ -15,12 +15,14 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.appcompat.widget.SearchView;
 import androidx.cardview.widget.CardView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.tabs.TabLayout;
@@ -229,8 +231,14 @@ public class MainActivity extends AppCompatActivity {
             }
 
         };
+        Response.ErrorListener errorListener = new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(MainActivity.this, "System Error", Toast.LENGTH_SHORT).show();
+            }
+        };
         RequestQueue requestQueue = Volley.newRequestQueue(this);
-        StringRequest stringRequest = RequestFactory.getPage("product", page,10,listener,null);
+        StringRequest stringRequest = RequestFactory.getPage("product", page,10,listener,errorListener);
         requestQueue.add (stringRequest);
     }
     public void requestFilteredProduct() {
@@ -256,10 +264,16 @@ public class MainActivity extends AppCompatActivity {
             }
 
         };
+        Response.ErrorListener errorListener = new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(MainActivity.this, "System Error", Toast.LENGTH_SHORT).show();
+            }
+        };
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         StringRequest stringRequest = RequestFactory.getFiltered(page,10,filterName.getText().toString(),
                 Integer.parseInt(filterLowestPrice.getText().toString()),Integer.parseInt(filterHighestPrice.getText().toString()),
-                filterProductCategoryString,filterConditionUsed, listener,null);
+                filterProductCategoryString,filterConditionUsed, listener,errorListener);
         requestQueue.add (stringRequest);
     }
 }

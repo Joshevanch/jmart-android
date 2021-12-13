@@ -47,7 +47,7 @@ public class AboutMeActivity extends AppCompatActivity {
         Button cancel = findViewById(R.id.buttonStoreRegisterCancel);
         aboutMeNameAccount.setText(LoginActivity.getLoggedAccount().name);
         aboutMeEmailAccount.setText(LoginActivity.getLoggedAccount().email);
-        aboutMeBalanceAccount.setText(String.valueOf(LoginActivity.getLoggedAccount().balance));
+        aboutMeBalanceAccount.setText(String.format("%.2f",LoginActivity.getLoggedAccount().balance));
         TextView storeNameName = findViewById(R.id.storeNameName);
         TextView storeAddressAddress = findViewById(R.id.storeAddressAddress);
         TextView storePhoneNumberPhoneNumber = findViewById(R.id.storePhoneNumberPhoneNumber);
@@ -56,7 +56,7 @@ public class AboutMeActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                Response.Listener<String> listener1 = new Response.Listener<String>() {
+                Response.Listener<String> listener = new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         Toast.makeText(AboutMeActivity.this, "Top Up Successful", Toast.LENGTH_SHORT).show();
@@ -64,14 +64,14 @@ public class AboutMeActivity extends AppCompatActivity {
                         aboutMeBalanceAccount.setText(String.valueOf(LoginActivity.getLoggedAccount().balance));
                     }
                 };
-                Response.ErrorListener errorListener1 = new Response.ErrorListener() {
+                Response.ErrorListener errorListener = new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Toast.makeText(AboutMeActivity.this, "System Error", Toast.LENGTH_SHORT).show();
                     }
                 };
                 TopUpRequest topUpRequest = new TopUpRequest(LoginActivity.getLoggedAccount().id, topUpAmount.getText().toString(),
-                        listener1, errorListener1);
+                        listener, errorListener);
                 RequestQueue requestQueue = Volley.newRequestQueue(AboutMeActivity.this);
                 requestQueue.add (topUpRequest);
             }

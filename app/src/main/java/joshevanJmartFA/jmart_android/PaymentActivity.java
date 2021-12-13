@@ -7,11 +7,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import joshevanJmartFA.jmart_android.request.PaymentRequest;
 
@@ -31,8 +35,19 @@ public class PaymentActivity extends AppCompatActivity {
                 Response.Listener<String> listener = new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        try {
+                            JSONObject object = new JSONObject(response);
+                            if (object != null){
+                                Toast.makeText(PaymentActivity.this, "Payment successful", Toast.LENGTH_SHORT).show();
+                            }
+                            else{
+                                Toast.makeText(PaymentActivity.this, "Payment failed", Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
 
-                    }
+                          }
                 };
                 Response.ErrorListener errorListener = new Response.ErrorListener() {
                     @Override
@@ -44,6 +59,7 @@ public class PaymentActivity extends AppCompatActivity {
                         paymentShipmentAddress.getText().toString(),listener,errorListener);
                 RequestQueue requestQueue = Volley.newRequestQueue(PaymentActivity.this);
                 requestQueue.add (paymentRequest);
+                finish();
             }
         });
     }

@@ -15,7 +15,10 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
         <activity
-            android:name=".StoreActivity"
+            android:name=".StorePaymentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AccountPaymentActivity"
             android:exported="false" />
         <activity
             android:name=".PaymentActivity"

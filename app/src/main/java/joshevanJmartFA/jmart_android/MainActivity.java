@@ -84,6 +84,10 @@ public class MainActivity extends AppCompatActivity {
                 Intent i = new Intent(this,AboutMeActivity.class);
                 this.startActivity(i);
                 return true;
+            case R.id.paymentItem:
+                Intent t = new Intent(this,InvoiceHistoryActivity.class);
+                this.startActivity(t);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -93,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         tabLayout = findViewById(R.id.tabLayout);
-        cardViewProducts = findViewById(R.id.cardViewProducts);
+        cardViewProducts = findViewById(R.id.cardViewStoreActivity);
         cardViewFilters = findViewById(R.id.cardViewFilters);
         buttonNext = findViewById(R.id.buttonNext);
         buttonPrev = findViewById(R.id.buttonPrev);
@@ -109,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
         if (filterProduct == false) requestProduct();
         else requestFilteredProduct();
         requestProduct();
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 switch (tab.getPosition()){
@@ -145,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
         buttonPrev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (MainActivity.page >= 0) {
+                if (MainActivity.page > 0) {
                     MainActivity.page -= 1;
                     if (filterProduct == false) requestProduct();
                     else requestFilteredProduct();
@@ -208,7 +212,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    public void requestProduct() {
+    private void requestProduct() {
         Response.Listener<String> listener = new Response.Listener<String>() {
 
 
@@ -241,7 +245,7 @@ public class MainActivity extends AppCompatActivity {
         StringRequest stringRequest = RequestFactory.getPage("product", page,10,listener,errorListener);
         requestQueue.add (stringRequest);
     }
-    public void requestFilteredProduct() {
+    private void requestFilteredProduct() {
         Response.Listener<String> listener = new Response.Listener<String>() {
 
 

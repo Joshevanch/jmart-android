@@ -28,7 +28,7 @@
     </com.google.android.material.tabs.TabLayout>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardViewProducts"
+        android:id="@+id/cardViewStoreActivity"
         android:layout_width="433dp"
         android:layout_height="682dp"
         android:layout_marginTop="48dp"

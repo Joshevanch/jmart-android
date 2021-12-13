@@ -17,4 +17,9 @@
         android:icon = "@drawable/ic_baseline_account_box_24"
         android:title ="Account"
         app:showAsAction="collapseActionView|always"/>
+    <item
+        android:id= "@+id/paymentItem"
+        android:icon = "@drawable/ic_baseline_supervisor_account_24"
+        android:title ="Payment"
+        app:showAsAction="collapseActionView|always"/>
 </menu>

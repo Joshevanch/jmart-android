@@ -20,6 +20,6 @@ public class Payment extends Invoice{
     }
     @Override
     public String toString(){
-        return String.valueOf(this.productId) + this.history.get(this.history.size()-1).status;
+        return String.valueOf(this.productId) + "                                    "+this.history.get(this.history.size()-1).status;
     }
 }

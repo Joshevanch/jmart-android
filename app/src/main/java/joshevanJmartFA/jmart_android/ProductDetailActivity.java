@@ -12,9 +12,15 @@ import org.w3c.dom.Text;
 
 import java.util.Locale;
 
+/**
+ * This class contains all layout and logic in the product detail activity
+ */
 public class ProductDetailActivity extends AppCompatActivity {
     static String shipmentPlansString ;
     @Override
+    /**
+     * This method override AppCompatActivity.onCreate
+     */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_detail_acitivity);
@@ -40,6 +46,9 @@ public class ProductDetailActivity extends AppCompatActivity {
         productDetailAccountId.setText(String.valueOf(MainActivity.product.accountId));
         setProductDetailShipmentPlans(MainActivity.product.shipmentPlans);
         productDetailShipmentPlans.setText(shipmentPlansString);
+        /**
+         * Logic on button pay product clicked
+         */
         buttonPayProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,6 +56,9 @@ public class ProductDetailActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        /**
+         * Logic on button pay cancel clicked
+         */
         buttonPayCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,6 +68,10 @@ public class ProductDetailActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * This method converts shipment plan to string
+     * @param shipmentPlans object shipment plan
+     */
     private void setProductDetailShipmentPlans (Byte shipmentPlans){
         if (MainActivity.product.shipmentPlans == 0){
             shipmentPlansString = "INSTANT";

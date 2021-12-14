@@ -1,5 +1,9 @@
 package joshevanJmartFA.jmart_android.model;
-
+/**
+ * Enumeration of product category
+ * @author Joshevan
+ *
+ */
 public enum ProductCategory {
     BOOK,
     KITCHEN,

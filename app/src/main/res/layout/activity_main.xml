@@ -77,6 +77,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/productPageNumber"
+            android:layout_width="205dp"
+            android:layout_height="84dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="50dp"
+            android:text="Page: "
+            tools:visibility="visible" />
+
         <ListView
             android:id="@+id/listView"
             android:layout_width="462dp"
@@ -149,6 +158,15 @@
             android:layout_marginStart="230dp"
             android:layout_marginTop="258dp"
             android:entries="@array/productCategoryFilter"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="389dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="340dp"
+            android:text="N.B : If you don't want to filter price, fill lowest price and highest price with 0. If you don't want to filter product  category, choose product category none"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

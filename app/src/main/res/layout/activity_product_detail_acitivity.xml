@@ -10,7 +10,7 @@
         android:id="@+id/productDetailName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="264dp"
+        android:layout_marginStart="248dp"
         android:layout_marginTop="92dp"
         android:text="Name"
         android:textSize="20sp"
@@ -18,54 +18,10 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/productDetailAccountId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="264dp"
-        android:layout_marginTop="32dp"
-        android:text="Account Id"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/productDetailShipmentPlans" />
-
-    <TextView
-        android:id="@+id/productDetailPrice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="264dp"
-        android:layout_marginTop="32dp"
-        android:text="Price"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/productDetailCategory" />
-
-    <TextView
-        android:id="@+id/productDetailDiscount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="264dp"
-        android:layout_marginTop="28dp"
-        android:text="Discount"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/productDetailPrice" />
-
-    <TextView
-        android:id="@+id/productDetailShipmentPlans"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="264dp"
-        android:layout_marginTop="28dp"
-        android:text="Shipment Plans"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/productDetailConditionUsed" />
-
-    <TextView
         android:id="@+id/productDetailCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="264dp"
+        android:layout_marginStart="248dp"
         android:layout_marginTop="28dp"
         android:text="Category"
         android:textSize="18sp"
@@ -73,15 +29,59 @@
         app:layout_constraintTop_toBottomOf="@+id/productDetailName" />
 
     <TextView
+        android:id="@+id/productDetailPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="248dp"
+        android:layout_marginTop="32dp"
+        android:text="Price"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/productDetailCategory" />
+
+    <TextView
+        android:id="@+id/productDetailShipmentPlans"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="248dp"
+        android:layout_marginTop="28dp"
+        android:text="Shipment Plans"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/productDetailConditionUsed" />
+
+    <TextView
+        android:id="@+id/productDetailDiscount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="248dp"
+        android:layout_marginTop="28dp"
+        android:text="Discount"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/productDetailPrice" />
+
+    <TextView
         android:id="@+id/productDetailConditionUsed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="264dp"
+        android:layout_marginStart="248dp"
         android:layout_marginTop="32dp"
         android:text="Condition Used"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/productDetailDiscount" />
+
+    <TextView
+        android:id="@+id/productDetailAccountId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="248dp"
+        android:layout_marginTop="32dp"
+        android:text="Account Id"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/productDetailShipmentPlans" />
 
     <TextView
         android:id="@+id/textView2"

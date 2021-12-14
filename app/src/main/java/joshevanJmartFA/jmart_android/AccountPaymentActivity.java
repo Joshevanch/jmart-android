@@ -22,9 +22,15 @@ import joshevanJmartFA.jmart_android.model.Payment;
 import joshevanJmartFA.jmart_android.request.CancelPaymentRequest;
 import joshevanJmartFA.jmart_android.request.TopUpRequest;
 
+/**
+ * This class contains all layout and logic in the account payment activity
+ */
 public class AccountPaymentActivity extends AppCompatActivity {
     DateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy HH:mm:ss");
     @Override
+    /**
+     * This method override AppCompatActivity.onCreate
+     */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_payment);
@@ -32,6 +38,8 @@ public class AccountPaymentActivity extends AppCompatActivity {
         TextView accountPaymentDate = findViewById(R.id.accountPaymentDate);
         TextView accountPaymentStatus = findViewById(R.id.accountPaymentStatus);
         TextView accountPaymentShipmentAddress = findViewById(R.id.accountPaymentShipmentAddress);
+        TextView textViewReceipt = findViewById(R.id.TextViewReceipt);
+        TextView accountPaymentReceipt = findViewById(R.id.accountPaymentReceipt);
         Button buttonCancelAccountPayment = findViewById(R.id.buttonCancelAccountPayment);
         accountPaymentBuyerId.setText(String.valueOf(InvoiceHistoryActivity.accountPayment.productId));
         accountPaymentDate.setText(dateFormat.format(InvoiceHistoryActivity.accountPayment.date));
@@ -40,6 +48,18 @@ public class AccountPaymentActivity extends AppCompatActivity {
         if (InvoiceHistoryActivity.accountPayment.history.get(InvoiceHistoryActivity.accountPayment.history.size()-1).status != Invoice.Status.WAITING_CONFIRMATION){
              buttonCancelAccountPayment.setVisibility(View.GONE);
         }
+        if (InvoiceHistoryActivity.accountPayment.history.get(InvoiceHistoryActivity.accountPayment.history.size()-1).status == Invoice.Status.ON_DELIVERY){
+            textViewReceipt.setVisibility(View.VISIBLE);
+            accountPaymentReceipt.setVisibility(View.VISIBLE);
+            accountPaymentReceipt.setText(InvoiceHistoryActivity.accountPayment.shipment.receipt);
+        }
+        else{
+            textViewReceipt.setVisibility(View.GONE);
+            accountPaymentReceipt.setVisibility(View.GONE);
+        }
+        /**
+         * Logic on button cancel clicked
+         */
         buttonCancelAccountPayment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

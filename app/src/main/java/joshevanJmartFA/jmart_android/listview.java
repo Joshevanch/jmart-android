@@ -4,6 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+/**
+ * This class contains list view for array adapter
+ */
 public class listview extends AppCompatActivity {
 
     @Override

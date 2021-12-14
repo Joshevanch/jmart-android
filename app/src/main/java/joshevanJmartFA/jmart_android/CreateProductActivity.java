@@ -26,6 +26,9 @@ import joshevanJmartFA.jmart_android.model.Product;
 import joshevanJmartFA.jmart_android.request.CreateProductRequest;
 import joshevanJmartFA.jmart_android.request.LoginRequest;
 
+/**
+ * This class contains all layout and logic in the create product activity
+ */
 public class CreateProductActivity extends AppCompatActivity {
     private static final Gson gson = new Gson();
     private static Product product = null;
@@ -35,6 +38,9 @@ public class CreateProductActivity extends AppCompatActivity {
     private String getSelectedShipmentPlans ;
 
     @Override
+    /**
+     * This method override AppCompatActivity.onCreate
+     */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Gson gson = new Gson();
@@ -45,6 +51,9 @@ public class CreateProductActivity extends AppCompatActivity {
         EditText createProductDiscount = findViewById(R.id.createProductDiscount);
         Spinner productCategory = findViewById(R.id.createProductCategory);
         Spinner shipmentPlans = findViewById(R.id.createProductShipmentPlan);
+        /**
+         * Logic when product category spinner clicked
+         */
         productCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -56,6 +65,9 @@ public class CreateProductActivity extends AppCompatActivity {
 
             }
         });
+        /**
+         * Logic on shipment plans spinner  clicked
+         */
         shipmentPlans.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -68,6 +80,9 @@ public class CreateProductActivity extends AppCompatActivity {
             }
         });
         RadioGroup createProductRadioGroup = findViewById(R.id.createProductRadioGroup);
+        /**
+         * Login on radio group
+         */
         createProductRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -81,6 +96,9 @@ public class CreateProductActivity extends AppCompatActivity {
         });
         Button buttonCreateProduct= findViewById(R.id.buttonCreateProduct);
         Button buttonCancelProduct = findViewById(R.id.buttonCreateProductCancel);
+        /**
+         *  Logic on button create product clicked
+         */
         buttonCreateProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -125,6 +143,9 @@ public class CreateProductActivity extends AppCompatActivity {
                 requestQueue.add(createProductRequest);
             }
         });
+        /**
+         * Logic on button cancel clicked
+         */
         buttonCancelProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -25,9 +25,15 @@ import joshevanJmartFA.jmart_android.request.RegisterStoreRequest;
 import joshevanJmartFA.jmart_android.request.RequestFactory;
 import joshevanJmartFA.jmart_android.request.TopUpRequest;
 
+/**
+ * This class contains all layout and logic in the about me activity
+ */
 public class AboutMeActivity extends AppCompatActivity {
 
     @Override
+    /**
+     * This method override AppCompatActivity.onCreate
+     */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_me);
@@ -52,6 +58,9 @@ public class AboutMeActivity extends AppCompatActivity {
         TextView storeAddressAddress = findViewById(R.id.storeAddressAddress);
         TextView storePhoneNumberPhoneNumber = findViewById(R.id.storePhoneNumberPhoneNumber);
 
+        /**
+         * Logic on topUp button clicked
+         */
         topUp.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -61,7 +70,7 @@ public class AboutMeActivity extends AppCompatActivity {
                     public void onResponse(String response) {
                         Toast.makeText(AboutMeActivity.this, "Top Up Successful", Toast.LENGTH_SHORT).show();
                         LoginActivity.getLoggedAccount().balance += Double.parseDouble(topUpAmount.getText().toString());
-                        aboutMeBalanceAccount.setText(String.valueOf(LoginActivity.getLoggedAccount().balance));
+                        aboutMeBalanceAccount.setText(String.format("%.2f",LoginActivity.getLoggedAccount().balance));
                     }
                 };
                 Response.ErrorListener errorListener = new Response.ErrorListener() {
@@ -84,6 +93,9 @@ public class AboutMeActivity extends AppCompatActivity {
                     registerStore.setVisibility(View.VISIBLE);
                 }
             });
+            /**
+             * Logic on register button clicked
+             */
             register.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -117,6 +129,9 @@ public class AboutMeActivity extends AppCompatActivity {
                     requestQueue.add (registerStoreRequest);
                 }
             });
+            /**
+             * Logic on cancel button clicked
+             */
             cancel.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

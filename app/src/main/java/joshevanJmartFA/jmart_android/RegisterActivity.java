@@ -20,9 +20,15 @@ import org.json.JSONObject;
 import joshevanJmartFA.jmart_android.model.Account;
 import joshevanJmartFA.jmart_android.request.RegisterRequest;
 
+/**
+ * This class contains all layout and logic in the register activity
+ */
 public class RegisterActivity extends AppCompatActivity {
 
     @Override
+    /**
+     * This method override AppCompatActivity.onCreate
+     */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
@@ -30,6 +36,9 @@ public class RegisterActivity extends AppCompatActivity {
         EditText emailRegister = findViewById(R.id.emailRegister);
         EditText passwordRegister = findViewById(R.id.passwordRegister);
         Button buttonRegister = findViewById(R.id.buttonRegister);
+        /**
+         * Logic on button register clicked
+         */
         buttonRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

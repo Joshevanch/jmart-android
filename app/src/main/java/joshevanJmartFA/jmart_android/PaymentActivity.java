@@ -19,9 +19,15 @@ import org.json.JSONObject;
 
 import joshevanJmartFA.jmart_android.request.PaymentRequest;
 
+/**
+ * This class contains all layout and logic in the payment activity
+ */
 public class PaymentActivity extends AppCompatActivity {
 
     @Override
+    /**
+     * This method override AppCompatActivity.onCreate
+     */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
@@ -29,6 +35,9 @@ public class PaymentActivity extends AppCompatActivity {
         EditText paymentShipmentAddress = findViewById(R.id.paymentShipmentAddress);
         Button buttonPayProduct = findViewById(R.id.payProduct);
         Button buttonCancelPayProduct = findViewById(R.id.cancelPayProduct);
+        /**
+         * Logic on button pay clicked
+         */
         buttonPayProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -39,12 +48,11 @@ public class PaymentActivity extends AppCompatActivity {
                             JSONObject object = new JSONObject(response);
                             if (object != null){
                                 Toast.makeText(PaymentActivity.this, "Payment successful", Toast.LENGTH_SHORT).show();
-                            }
-                            else{
-                                Toast.makeText(PaymentActivity.this, "Payment failed", Toast.LENGTH_SHORT).show();
+                                LoginActivity.getLoggedAccount().balance -= MainActivity.product.price;
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
+                            Toast.makeText(PaymentActivity.this, "Payment failed", Toast.LENGTH_SHORT).show();
                         }
 
                           }
@@ -59,7 +67,6 @@ public class PaymentActivity extends AppCompatActivity {
                         paymentShipmentAddress.getText().toString(),listener,errorListener);
                 RequestQueue requestQueue = Volley.newRequestQueue(PaymentActivity.this);
                 requestQueue.add (paymentRequest);
-                finish();
             }
         });
     }

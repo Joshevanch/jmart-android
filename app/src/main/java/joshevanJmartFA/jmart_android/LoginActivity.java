@@ -23,13 +23,24 @@ import org.json.JSONObject;
 import joshevanJmartFA.jmart_android.model.Account;
 import joshevanJmartFA.jmart_android.request.LoginRequest;
 
+/**
+ * This class contains all layout and logic in the login activity
+ */
 public class LoginActivity extends AppCompatActivity {
     private static final Gson gson = new Gson();
     private static Account loggedAccount = null;
+
+    /**
+     * Getter method for logged account
+     * @return logged account
+     */
     public static Account getLoggedAccount(){
         return LoginActivity.loggedAccount;
     }
     @Override
+    /**
+     * This method override AppCompatActivity.onCreate
+     */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
@@ -44,6 +55,9 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        /**
+         * Logic on button login clicked
+         */
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -9,6 +9,9 @@ import java.util.Map;
 import joshevanJmartFA.jmart_android.LoginActivity;
 import joshevanJmartFA.jmart_android.MainActivity;
 
+/**
+ * This class used to create payment request to parse from back end
+ */
 public class PaymentRequest extends StringRequest {
     private static final String URL = "http://10.0.2.2:8080/payment/create";
     private final Map<String, String> params;

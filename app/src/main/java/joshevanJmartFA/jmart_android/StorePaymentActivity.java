@@ -21,8 +21,14 @@ import joshevanJmartFA.jmart_android.model.Invoice;
 import joshevanJmartFA.jmart_android.request.CancelPaymentRequest;
 import joshevanJmartFA.jmart_android.request.SubmitPaymentRequest;
 
+/**
+ * This class contains all layout and logic in the store payment activity
+ */
 public class StorePaymentActivity extends AppCompatActivity {
     DateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy HH:mm:ss");
+    /**
+     * This method override AppCompatActivity.onCreate
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +47,9 @@ public class StorePaymentActivity extends AppCompatActivity {
             buttonSubmitStorePayment.setVisibility(View.GONE);
             buttonCancelStorePayment.setVisibility(View.GONE);
         }
+        /**
+         * Logic on button submit store payment clicked
+         */
         buttonSubmitStorePayment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,11 +68,14 @@ public class StorePaymentActivity extends AppCompatActivity {
                     }
                 };
                 SubmitPaymentRequest submitPaymentRequest = new SubmitPaymentRequest(InvoiceHistoryActivity.storePayment.id,
-                        listener, errorListener);
+                        InvoiceHistoryActivity.storePayment.shipment.address ,listener, errorListener);
                 RequestQueue requestQueue = Volley.newRequestQueue(StorePaymentActivity.this);
                 requestQueue.add (submitPaymentRequest);
             }
         });
+        /**
+         * Logic on button cancel store payment clicked
+         */
         buttonCancelStorePayment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,10 +99,5 @@ public class StorePaymentActivity extends AppCompatActivity {
                 requestQueue.add (cancelPaymentRequest);
             }
         });
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
     }
 }

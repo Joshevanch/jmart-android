@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,6 +34,9 @@ import java.util.List;
 import joshevanJmartFA.jmart_android.model.Payment;
 import joshevanJmartFA.jmart_android.request.RequestFactory;
 
+/**
+ * This class contains all layout and logic in the invoice history activity
+ */
 public class InvoiceHistoryActivity extends AppCompatActivity {
     private static final Gson gson = new Gson();
     String searchText;
@@ -50,6 +54,8 @@ public class InvoiceHistoryActivity extends AppCompatActivity {
     Button buttonGoAccount;
     EditText storePage;
     EditText accountPage;
+    TextView storePageNumber;
+    TextView accountPageNumber;
     public static int pageStore = 0;
     public static int pageAccount = 0;
     public static Payment storePayment = null;
@@ -59,6 +65,9 @@ public class InvoiceHistoryActivity extends AppCompatActivity {
     public static  ArrayList<Payment> storePaymentList = null;
     public static  ArrayList<Payment> accountPaymentList = null;
     @Override
+    /**
+     * This method override AppCompatActivity.onCreate
+     */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_invoice_history);
@@ -75,6 +84,10 @@ public class InvoiceHistoryActivity extends AppCompatActivity {
         buttonGoAccount = findViewById(R.id.buttonGoAccount);
         storePage = findViewById(R.id.editTextPageStore);
         accountPage = findViewById(R.id.editTextPageAccount);
+        storePageNumber = findViewById(R.id.storePageNumber);
+        accountPageNumber = findViewById(R.id.accountPageNumber);
+        storePageNumber.setText("Page: "+String.valueOf(pageStore+1));
+        accountPageNumber.setText("Page: "+String.valueOf(pageAccount+1));
         requestStorePayment();
         requestAccountPayment();
         if (LoginActivity.getLoggedAccount().store == null){
@@ -82,7 +95,9 @@ public class InvoiceHistoryActivity extends AppCompatActivity {
             cardViewAccountActivity.setVisibility(View.VISIBLE);
             cardViewStoreActivity.setVisibility(View.GONE);
         }
-
+        /**
+         * Logic on tab lay out clicked
+         */
         tabLayoutPayment.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -109,37 +124,51 @@ public class InvoiceHistoryActivity extends AppCompatActivity {
             }
         });
 
-
+        /**
+         * Logic on buttonnext store clicked
+         */
         buttonNextStore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 InvoiceHistoryActivity.pageStore += 1;
+                storePageNumber.setText("Page: "+String.valueOf(pageStore+1));
                 requestStorePayment();
             }
         });
+        /**
+         * Logic on button prev store clicked
+         */
         buttonPrevStore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (InvoiceHistoryActivity.pageStore >0 ){
                     InvoiceHistoryActivity.pageStore -= 1;
+                    storePageNumber.setText("Page: "+String.valueOf(pageStore+1));
                     requestStorePayment();
                 }
                 else{
-                    Toast.makeText(InvoiceHistoryActivity.this,"This is start of the page",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(InvoiceHistoryActivity.this,"This is the first page",Toast.LENGTH_SHORT).show();
                 }
             }
         });
+        /**
+         * Logic on button go store clicked
+         */
         buttonGoStore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (Integer.parseInt(storePage.getText().toString()) >= 0){
                     InvoiceHistoryActivity.pageStore = Integer.parseInt(storePage.getText().toString());
+                    storePageNumber.setText("Page: "+String.valueOf(pageStore+1));
                 }
                 else{
                     Toast.makeText(InvoiceHistoryActivity.this,"Invalid page input",Toast.LENGTH_SHORT).show();
                 }
             }
         });
+        /**
+         * Logic on list view store item clicked
+         */
         listViewStore.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -148,33 +177,51 @@ public class InvoiceHistoryActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        /**
+         * Logic on button next account clicked
+         */
         buttonNextAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 InvoiceHistoryActivity.pageAccount += 1;
+                accountPageNumber.setText("Page: "+String.valueOf(pageAccount+1));
                 requestAccountPayment();
             }
         });
+        /**
+         * Logic on button prev account clicked
+         */
         buttonPrevAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (InvoiceHistoryActivity.pageAccount >0 ){
                     InvoiceHistoryActivity.pageAccount -= 1;
+                    accountPageNumber.setText("Page: "+String.valueOf(pageAccount+1));
                     requestAccountPayment();
+                }
+                else{
+                    Toast.makeText(InvoiceHistoryActivity.this,"This is the first page",Toast.LENGTH_SHORT).show();
                 }
             }
         });
+        /**
+         * Logic on button go account clicked
+         */
         buttonGoAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (Integer.parseInt(accountPage.getText().toString()) >= 0){
                     InvoiceHistoryActivity.pageAccount = Integer.parseInt(accountPage.getText().toString());
+                    accountPageNumber.setText("Page: "+String.valueOf(pageAccount+1));
                 }
                 else{
                     Toast.makeText(InvoiceHistoryActivity.this,"Invalid page input",Toast.LENGTH_SHORT).show();
                 }
             }
         });
+        /**
+         * Logic on list view account item clicked
+         */
         listViewAccount.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -184,6 +231,10 @@ public class InvoiceHistoryActivity extends AppCompatActivity {
             }
         });
 }
+
+    /**
+     * This method request store payment from back end and set list view to list of store payment
+     */
     private void requestStorePayment() {
         Response.Listener<String> listener = new Response.Listener<String>() {
 
@@ -218,6 +269,9 @@ public class InvoiceHistoryActivity extends AppCompatActivity {
                 "storepayment",InvoiceHistoryActivity.pageStore,10,listener,errorListener);
         requestQueue.add (stringRequest);
     }
+    /**
+     * This method request account payment from back end and set list view to list of account payment
+     */
     private void requestAccountPayment() {
         Response.Listener<String> listener = new Response.Listener<String>() {
 

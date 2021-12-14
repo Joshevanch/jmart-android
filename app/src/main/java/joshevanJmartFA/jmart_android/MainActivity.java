@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.SearchView;
@@ -39,6 +40,9 @@ import java.util.List;
 import joshevanJmartFA.jmart_android.model.Product;
 import joshevanJmartFA.jmart_android.request.RequestFactory;
 
+/**
+ * This class contains all layout and logic in the main activity
+ */
 public class MainActivity extends AppCompatActivity {
     private static final Gson gson = new Gson();
     String searchText;
@@ -57,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
     Spinner filterProductCategory;
     Button applyFilter;
     Button clearFilter;
+    TextView productPageNumber;
     private String filterProductCategoryString;
     private Boolean filterProduct = false;
     private Boolean filterConditionUsed = true;
@@ -66,6 +71,9 @@ public class MainActivity extends AppCompatActivity {
     public static  ArrayList<Product> productList = null;
     public static  ArrayList<Product> filteredProductList = null;
     @Override
+    /**
+     * This method override onCreateOptionsMenu to show and hide menu item
+     */
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_main_login, menu);
@@ -74,6 +82,12 @@ public class MainActivity extends AppCompatActivity {
         }
         return true;
     }
+
+    /**
+     * This method contains logic on item clicked
+     * @param item menu item
+     * @return true when success to intent
+     */
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.createItem:
@@ -93,6 +107,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     @Override
+    /**
+     * This method override AppCompatActivity.onCreate
+     */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -110,9 +127,14 @@ public class MainActivity extends AppCompatActivity {
         filterProductCategory = findViewById(R.id.filterProductCategory);
         applyFilter = findViewById(R.id.buttonFilterApply);
         clearFilter = findViewById(R.id.buttonFilterClear);
+        productPageNumber = findViewById(R.id.productPageNumber);
+        productPageNumber.setText("Page: "+String.valueOf(page+1));
         if (filterProduct == false) requestProduct();
         else requestFilteredProduct();
         requestProduct();
+        /**
+         * Logic on tab layout clicked
+         */
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -138,34 +160,55 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+        /**
+         * Logic on button next clicked
+         */
         buttonNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 MainActivity.page += 1;
+                productPageNumber.setText("Page: "+String.valueOf(page+1));
                 if (filterProduct == false) requestProduct();
                 else requestFilteredProduct();
             }
         });
+        /**
+         * Logic on button prev clicked
+         */
         buttonPrev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (MainActivity.page > 0) {
                     MainActivity.page -= 1;
+                    productPageNumber.setText("Page: "+String.valueOf(page+1));
                     if (filterProduct == false) requestProduct();
                     else requestFilteredProduct();
                 }
+                else{
+                    Toast.makeText(MainActivity.this,"This is the first page",Toast.LENGTH_SHORT).show();
+                }
             }
         });
+        /**
+         * Logic on button go clicked
+         */
         buttonGo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (Integer.parseInt(productPage.getText().toString()) >= 0){
                     MainActivity.page = Integer.parseInt(productPage.getText().toString());
+                    productPageNumber.setText("Page: "+String.valueOf(page+1));
                     if (filterProduct == false) requestProduct();
                     else requestFilteredProduct();
                 }
+                else{
+                    Toast.makeText(MainActivity.this,"Invalid page input",Toast.LENGTH_SHORT).show();
+                }
             }
         });
+        /**
+         * Logic on listview product item clicked
+         */
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -174,6 +217,9 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        /**
+         * Logic on filter product category spinner
+         */
         filterProductCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -185,6 +231,9 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+        /**
+         * Logic on radio group filter
+         */
         RadioGroup filterProductRadioGroup = findViewById(R.id.filterProductRadioGroup);
         filterProductRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -197,6 +246,9 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+        /**
+         * Logic on button apply filter clicked
+         */
         applyFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -204,6 +256,9 @@ public class MainActivity extends AppCompatActivity {
                 requestFilteredProduct();
             }
         });
+        /**
+         * Logic on clear filter clicked
+         */
         clearFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -212,6 +267,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    /**
+     * This method request list of product from back end and set list view to list of product
+     */
     private void requestProduct() {
         Response.Listener<String> listener = new Response.Listener<String>() {
 
@@ -245,6 +304,9 @@ public class MainActivity extends AppCompatActivity {
         StringRequest stringRequest = RequestFactory.getPage("product", page,10,listener,errorListener);
         requestQueue.add (stringRequest);
     }
+    /**
+     * This method request list of filtered product from back end and set list view to list of filtered product
+     */
     private void requestFilteredProduct() {
         Response.Listener<String> listener = new Response.Listener<String>() {
 

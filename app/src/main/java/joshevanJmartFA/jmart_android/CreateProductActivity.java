@@ -33,7 +33,7 @@ public class CreateProductActivity extends AppCompatActivity {
     private static final Gson gson = new Gson();
     private static Product product = null;
     private String shipmentPlansString = "0";
-    private String createProductConditionUsed = "true";
+    private String createProductConditionUsed = "false";
     private String productCategoryString ;
     private String getSelectedShipmentPlans ;
 
@@ -111,6 +111,8 @@ public class CreateProductActivity extends AppCompatActivity {
                                 Toast.makeText(CreateProductActivity.this, "Create Product Successful", Toast.LENGTH_SHORT).show();
                                 product = gson.fromJson(object.toString(), Product.class);
                                 MainActivity.productList.add(product);
+                                Intent intent = new Intent (CreateProductActivity.this, MainActivity.class);
+                                startActivity(intent);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
